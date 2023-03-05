@@ -1,0 +1,9 @@
+HPA
+
+Check with:
+
+curl http://gs-rest-service-proyecto.ruta/rest-service-complete/greeting
+
+Heavy Load with:
+
+curl http://gs-rest-service-proyecto.ruta/rest-service-complete/calculate

@@ -1,0 +1,26 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: gs-rest-service
+spec:
+  selector:
+    matchLabels:
+      deployment: gs-rest-service
+  template:
+    metadata:
+      labels:
+        deployment: gs-rest-service
+    spec:
+      containers:
+        - name: gs-rest-service
+          image: quay.io/dacelent/gs-rest-service:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 400Mi
