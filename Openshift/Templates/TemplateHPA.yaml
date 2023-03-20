@@ -1,0 +1,103 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: hpa-template
+  annotations:
+    description: "Description"
+    iconClass: "icon-spring-boot"
+    tags: "java, hpa, service"
+objects:
+-   kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: gs-rest-service
+    spec:
+      selector:
+        matchLabels:
+          deployment: gs-rest-service
+      template:
+        metadata:
+          labels:
+            deployment: gs-rest-service
+        spec:
+          containers:
+            - name: gs-rest-service
+              image: quay.io/dacelent/gs-rest-service:latest
+              ports:
+                 - containerPort: 8080
+                   protocol: TCP
+                   resources:
+                     limits:
+                       cpu: 500m
+                       memory: 1Gi
+                     requests:
+                       cpu: 100m
+                       memory: 400Mi
+          securityContext:
+            enabled: false
+-   kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: gs-rest-service
+      labels:
+          app: gs-rest-service
+          app.kubernetes.io/component: gs-rest-service
+          app.kubernetes.io/instance: gs-rest-service
+    spec:
+      to:
+          kind: Service
+          name: gs-rest-service
+          weight: 100
+      port:
+          targetPort: 8080-tcp
+-   kind: Service
+    apiVersion: v1
+    metadata:
+      name: gs-rest-service
+      labels:
+          app: gs-rest-service
+    spec:
+      ports:
+          - name: 8080-tcp
+            protocol: TCP
+            port: 8080
+            targetPort: 8080
+          - name: 8443-tcp
+            protocol: TCP
+            port: 8443
+            targetPort: 8443
+          - name: 8778-tcp
+            protocol: TCP
+            port: 8778
+            targetPort: 8778
+      selector:
+          deployment: gs-rest-service
+-   kind: HorizontalPodAutoscaler
+    apiVersion: autoscaling/v2
+    metadata:
+      name: gs-rest-service
+    spec:
+      scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: gs-rest-service
+      minReplicas: '${{MIN_REPLICAS}}'
+      maxReplicas: '${{MAX_REPLICAS}}'
+      metrics:
+      - type: Resource
+        resource:
+            name: cpu
+            target:
+              type: Utilization
+              averageUtilization: 50
+parameters:
+- description: Cantidad Minima de Replicas
+  name: MIN_REPLICAS
+  default: 1
+  required: true
+- description: Cantidad Maxima de Replicas
+  name: MAX_REPLICAS
+  default: 2
+  required: true
+labels:
+  app: hpa-example
