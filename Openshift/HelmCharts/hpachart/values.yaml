@@ -1,0 +1,11 @@
+# Default values for hpachart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+route:
+  tls: false
+  
+hpa:
+  replicas:
+    min: 1
+    max: 10
