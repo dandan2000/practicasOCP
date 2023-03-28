@@ -1,17 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: todo-app
+  name: todo
+  namespace: user1-argocd
 spec:
   destination:
-    namespace: user$USERNUM-todo
-    server: https://kubernetes.default.svc
-  project: default
+    namespace: user1-todo-beta
+    server: 'https://kubernetes.default.svc'
+  project: user1
   source:
-    path: documentation/modules/ROOT/examples/todo
-    repoURL: https://github.com/openshiftdemos/openshift-gitops-workshop
-    targetRevision: master
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: false
+    path: Openshift/GitOps/todo
+    repoURL: 'https://github.com/dandan2000/practicasOCP.git'
+    targetRevision: HEAD
