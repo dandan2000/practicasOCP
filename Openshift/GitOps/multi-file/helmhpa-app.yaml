@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helmhpa
+  namespace: user1-argocd
+spec:
+  destination:
+    namespace: user1-helmhpa
+    server: 'https://kubernetes.default.svc'
+  project: user1
+  source:
+    helm:
+      parameters:
+        - name: hpa.replicas.min
+          value: '3'
+      valueFiles:
+        - values.yaml
+    path: Openshift/HelmCharts/hpachart
+    repoURL: 'https://github.com/dandan2000/practicasOCP.git'
+    targetRevision: HEAD
