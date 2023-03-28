@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: todo
+  namespace: user1-argocd
+spec:
+  destination:
+    namespace: user1-todo
+    server: 'https://kubernetes.default.svc'
+  project: user1
+  source:
+    path: Openshift/GitOps/todo
+    repoURL: 'https://github.com/dandan2000/practicasOCP.git'
+    targetRevision: HEAD
