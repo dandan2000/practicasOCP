@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bgdk
+  namespace: user1-argocd
+spec:
+  destination:
+    namespace: user1-bgdk
+    server: 'https://kubernetes.default.svc'
+  project: user1
+  source:
+    path: Openshift/GitOps/bgdk
+    repoURL: 'https://github.com/dandan2000/practicasOCP.git'
+    targetRevision: HEAD
