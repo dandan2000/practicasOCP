@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: user1-bgdk
     server: 'https://kubernetes.default.svc'
-  project: user1
+  project: demo-tasa
   source:
     path: Openshift/GitOps/bgdk
     repoURL: 'https://github.com/dandan2000/practicasOCP.git'
