@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: user1-helmhpa
     server: 'https://kubernetes.default.svc'
-  project: user1
+  project: demo-tasa
   source:
     helm:
       parameters:
