@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "myapache.fullname" . }}
+  labels:
+    {{- include "myapache.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8443
+      protocol: TCP
+      name: https
+  selector:
+    {{- include "myapache.selectorLabels" . | nindent 4 }}
