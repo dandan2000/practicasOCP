@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: example
+  namespace: pruebadaniel
+  uid: 4fb8e847-213a-44fa-9362-f174e5585085
+  resourceVersion: '93838'
+  creationTimestamp: '2023-03-14T18:15:35Z'
+  labels:
+    app: httpd
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2023-03-14T19:08:45Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":8080,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  clusterIP: 172.30.198.169
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.198.169
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: httpd
+status:
+  loadBalancer: {}
+

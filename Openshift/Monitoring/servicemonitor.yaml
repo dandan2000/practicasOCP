@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  creationTimestamp: '2023-03-14T18:53:23Z'
+  generation: 2
+  labels:
+    app: httpd
+  managedFields:
+    - apiVersion: monitoring.coreos.com/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          .: {}
+          'f:endpoints': {}
+          'f:selector':
+            .: {}
+            'f:matchLabels':
+              .: {}
+              'f:app': {}
+      manager: Mozilla
+      operation: Update
+      time: '2023-03-14T19:08:14Z'
+  name: app-example
+  namespace: pruebadaniel
+  resourceVersion: '93627'
+  uid: 55de80ae-ae3d-4398-8647-0f15df6a3d90
+spec:
+  endpoints:
+    - interval: 30s
+      path: /rest-service-complete/actuator/prometheus
+      port: web
+      scheme: http
+  selector:
+    matchLabels:
+      app: httpd
