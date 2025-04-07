@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  generation: 1
+  labels:
+    app: otro-apache
+  name: otro-apache
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 0
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: otro-apache
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: otro-apache
+    spec:
+      containers:
+      - image: registry.access.redhat.com/ubi9/httpd-24@sha256:366cc5bc3b96069fecaa0abeb9d3510c507e69a20de1d205d881da8ae8561ab4
+        imagePullPolicy: IfNotPresent
+        name: httpd-24
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 300Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        propiedad: secon
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
